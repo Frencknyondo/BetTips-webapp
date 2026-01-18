@@ -1,0 +1,42 @@
+version: 1
+services:
+  - type: web
+    name: bettips-webapp
+    env: docker
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        fromDatabase:
+          name: bettips-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: bettips-db
+          property: port
+      - key: DB_DATABASE
+        fromDatabase:
+          name: bettips-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: bettips-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: bettips-db
+          property: password
+      - key: APP_NAME
+        value: BetTips App
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_URL
+        value: https://your-render-url.onrender.com
+databases:
+  - name: bettips-db
+    databaseName: bettips
+    user: bettips
+    ipAllowList: []
